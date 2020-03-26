@@ -1,0 +1,10 @@
+executable = read_tree.sh
+arguments = $(path) $(outname)
+environment = "EOS_DIR=$ENV(EOS_DIR) SHIP_CVMFS_SETUP_FILE=$ENV(SHIP_CVMFS_SETUP_FILE) FAIRSHIP_DIR=$ENV(FAIRSHIP_DIR)"
+output = $ENV(CONDOR_ROOT)/output/sim.$(ClusterId).$(ProcId).out
+error = $ENV(CONDOR_ROOT)/error/sim.$(ClusterId).$(ProcId).err
+log = $ENV(CONDOR_ROOT)/log/sim.$(ClusterId).log
+transfer_input_files = read_tree_and_reco.py
+transfer_output_files = ""
++JobFlavour = "workday"
+queue path,outname from file_to_reco.txt 

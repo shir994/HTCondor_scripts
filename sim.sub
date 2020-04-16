@@ -1,0 +1,13 @@
+universe = docker
+docker_image = shir994/fairship:htcondor
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+executable = sim.sh
+arguments = $(directory) $(ProcId) $(N) $(muon_file) $(n_events) $ENV(EOS_DIR) $ENV(MAGNET_GEO)
+output = $ENV(CONDOR_ROOT)/output/sim.$(ClusterId).$(ProcId).out
+error = $ENV(CONDOR_ROOT)/error/sim.$(ClusterId).$(ProcId).err
+log = $ENV(CONDOR_ROOT)/log/sim.$(ClusterId).log
+transfer_output_files = ""
+transfer_input_files = /eos/experiment/ship/data/magnet_geofiles/$ENV(MAGNET_GEO)
++JobFlavour = "tomorrow"
+queue $(N)

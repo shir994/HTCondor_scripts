@@ -1,0 +1,12 @@
+universe = docker
+docker_image = shir994/fairship:htcondor
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+executable = flux.sh
+arguments = $(directory) $(ProcId) $(N) $(outfile) $ENV(EOS_DIR)
+output = $ENV(CONDOR_ROOT)/output/sim.$(ClusterId).$(ProcId).out
+error = $ENV(CONDOR_ROOT)/error/sim.$(ClusterId).$(ProcId).err
+log = $ENV(CONDOR_ROOT)/log/sim.$(ClusterId).log
+transfer_output_files = ""
++JobFlavour = "microcentury"
+queue $(N)

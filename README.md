@@ -1,44 +1,32 @@
 Basic scripts to submit jobs to CERN batch system
 
+How to: 
+
+- define `EOS_DIR`, `CONDOR_ROOT` in `set_global_envs.sh`. Define geometry file and directory where you want to save results on EOS by setting `PRODUCTION_FOLDER` and `MAGNET_GEO` in `set_paths_flux.sh`.
+- source set_global_envs.sh && source set_paths_flux.sh
+- mkdir $CONDOR_ROOT/error && CONDOR_ROOT/output && CONDOR_ROOT/log (this need to be done only once)
+- python3 generate_dag_file.py
+- condor_submit_dag `dag_submit.tmp`.
+
 How to use:
+### Step 1
+Set up variables names, used during submission. EOS_DIR is your usual `username` EOS folder. `CONDOR_ROOT` is the folder where you want HTCondor to write output, error and log messages. `MAGNET_GEO` is the shield geofile you want to test. For example, `baseline_geoflie.root`. `PRODUCTION_FOLDER` is where the whole output will be written on the EOS, i.e. all output will be saved at `EOS_DIR/PRODUCTION_FOLDER`.
+### Step 2
+Set the variables above.
+### Step 3 (important)
+Create folders for log/output/error logs. This is important to do, otherwise you jobs might stuck idle forever!
+### Step 4
+Generate DAG submission file. It will created jobs to process 67 muon. It will subsequently run `sim.sub->flux.sub` and in the and will create final output file of the flux in the `EOS_DIR/PRODUCTION_FOLDER`.
+### Step 5
+Submit jobs to cluster.
 
-### Step 1:
-set environment variables:
-```
-export AFS_DIR=/afs/cern.ch/work/s/USERNAME
-export EOS_DIR=/eos/experiment/ship/user/USERNAME/
-export FAIRSHIP_DIR=PATH TO FAIRSHIP
-export SHIP_CVMFS_SETUP_FILE=/cvmfs/ship.cern.ch/SHiP-2020/latest/setUp.sh
-export CONDOR_ROOT=PATH TO LOCATION OF THIS REPO
-```
-### Step 2:
-Set the variables in `set_paths.sh`:
-
-`PRODUCTION_FOLDER` is the folder on the EOS where the data will be saved.
-`MERGED_FILENAME` is the name of the output file, which will be created after merging the results of one job split.
-`OUTPUTNAME` name of the file which will be created after events selection.
-
-### Step 3:
-`cd run_processing && python run_submissions.py`.
-
-This step will run simulation itself. It is oraganised as follows: Currently we have 67 input muon files.
-The paths to the files, number of events in each file and name of the created output folder is in `input_for_muon_prod.txt` file.
-Each of those files will be processed in `N_JOBS` jobs and saved into the corresponding directory. So, after running jobs, you will get
-`$EOS_DIR/{1..67}` folders. Each folder will have `N_JOBS` subdirectories containig the output and geofile.
-
-### Step 4:
-Usually, you want to work with single input file, so want ot merge `N_JOBS` files into one. For that, do
-`cd hadd_maker && python run_hadd.py $PRODUCTION_FOLDER`. This will produce files called `$MERGED_FILENAME` in the above mentioned 67 folders.
-
-### Step 5:
-If you want work with FullGeometry SHiP simulation, you want to select only muons, that are hitting T1 station of the downstream tracker.
-Thus, you will run
-
-```
-cd post_process && python ../utils/create_existing_folders.py $PRODUCTION_FOLDER ./
-condor_submit read_tree.sub
-```
-After that you will have 67 files in the coreesponding folders. You can merge them again, or work with them directly to get final muon flux.
-
-
-**P.S.** All the above work can be almost automised using HTCondor DAG sumbissions. But I did not have time to set it up properly for now.
+In the end, you should have the follwoing output structure
+--EOS_DIR/PRODUCTION_FOLDER
+ |
+ |
+ {1..67} folders
+    |
+    | 
+    N_JOBS folders
+      ship.conical.MuonBack-TGeant4.root
+      flux.root 

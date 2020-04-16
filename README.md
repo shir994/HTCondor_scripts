@@ -4,7 +4,7 @@ How to:
 
 - define `EOS_DIR`, `CONDOR_ROOT` in `set_global_envs.sh`. Define geometry file and directory where you want to save results on EOS by setting `PRODUCTION_FOLDER` and `MAGNET_GEO` in `set_paths_flux.sh`.
 - `source set_global_envs.sh && source set_paths_flux.sh`
-- `mkdir $CONDOR_ROOT/error && CONDOR_ROOT/output && CONDOR_ROOT/log` (this need to be done only once)
+- `mkdir $CONDOR_ROOT/error $CONDOR_ROOT/output $CONDOR_ROOT/log` (this need to be done only once)
 - `python3 generate_dag_file.py`
 - `condor_submit_dag dag_submit.tmp`.
 
@@ -21,12 +21,18 @@ Generate DAG submission file. It will created jobs to process 67 muon. It will s
 Submit jobs to cluster.
 
 In the end, you should have the follwoing output structure
---EOS_DIR/PRODUCTION_FOLDER
- |
- |
- {1..67} folders
-    |
-    | 
-    N_JOBS folders
-      ship.conical.MuonBack-TGeant4.root
-      flux.root 
+```
+EOS_DIR/PRODUCTION_FOLDER
+|
+|
+|____1
+|    |
+|    └____0
+|    |     ship.conical.MuonBack-TGeant4.root
+|    |     flux.root
+|    |
+|     ...
+|    └____N_JOBS
+...
+└____67
+```

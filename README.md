@@ -3,10 +3,10 @@ Basic scripts to submit jobs to CERN batch system
 How to: 
 
 - define `EOS_DIR`, `CONDOR_ROOT` in `set_global_envs.sh`. Define geometry file and directory where you want to save results on EOS by setting `PRODUCTION_FOLDER` and `MAGNET_GEO` in `set_paths_flux.sh`.
-- source set_global_envs.sh && source set_paths_flux.sh
-- mkdir $CONDOR_ROOT/error && CONDOR_ROOT/output && CONDOR_ROOT/log (this need to be done only once)
-- python3 generate_dag_file.py
-- condor_submit_dag `dag_submit.tmp`.
+- `source set_global_envs.sh && source set_paths_flux.sh`
+- `mkdir $CONDOR_ROOT/error && CONDOR_ROOT/output && CONDOR_ROOT/log` (this need to be done only once)
+- `python3 generate_dag_file.py`
+- `condor_submit_dag dag_submit.tmp`.
 
 How to use:
 ### Step 1

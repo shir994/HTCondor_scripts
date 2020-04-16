@@ -1,9 +1,0 @@
-executable = $(pwd)/read_tree.sh
-arguments = $(path) $(outname)
-output = ../../output/sim.$(ClusterId).$(ProcId).out
-error = ../../error/sim.$(ClusterId).$(ProcId).err
-log = ../../log/sim.$(ClusterId).log
-transfer_input_files = read_tree_and_reco.py
-transfer_output_files = ""
-+JobFlavour = "longlunch"
-queue 

@@ -8,5 +8,6 @@ output = $ENV(CONDOR_ROOT)/output/sim.$(ClusterId).$(ProcId).out
 error = $ENV(CONDOR_ROOT)/error/sim.$(ClusterId).$(ProcId).err
 log = $ENV(CONDOR_ROOT)/log/sim.$(ClusterId).log
 transfer_output_files = ""
+requirements = Datacentre =?= "meyrin"
 +JobFlavour = "microcentury"
 queue $(N)

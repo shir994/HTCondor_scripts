@@ -9,6 +9,7 @@ error = $ENV(CONDOR_ROOT)/error/sim.$(ClusterId).$(ProcId).err
 log = $ENV(CONDOR_ROOT)/log/sim.$(ClusterId).log
 transfer_output_files = ""
 transfer_input_files = /eos/experiment/ship/data/magnet_geofiles/$ENV(MAGNET_GEO)
-requirements = Datacentre =?= "meyrin"
+periodic_release = regexp("Cannot start container: invalid image name", HoldReason)
+requirements = Machine =!= LastRemoteHost
 +JobFlavour = "tomorrow"
 queue $(N)

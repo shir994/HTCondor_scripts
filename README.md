@@ -1,4 +1,4 @@
-Basic scripts to submit jobs to CERN batch system
+Basic scripts to submit jobs to CERN batch system. If you will modify scripts, remember, that HTCondor Docker universe **DOES NOT** work with `/afs`, only `/eos`.
 
 How to: 
 
@@ -10,7 +10,7 @@ How to:
 
 How to use:
 ### Step 1
-Set up variables names, used during submission. EOS_DIR is your usual `username` EOS folder. `CONDOR_ROOT` is the folder where you want HTCondor to write output, error and log messages. `MAGNET_GEO` is the shield geofile you want to test. For example, `baseline_geoflie.root`. `PRODUCTION_FOLDER` is where the whole output will be written on the EOS, i.e. all output will be saved at `EOS_DIR/PRODUCTION_FOLDER`.
+Set up variables names, used during submission. EOS_DIR is your usual `username` EOS folder. `CONDOR_ROOT` is the folder where you want HTCondor to write output, error and log messages. `MAGNET_GEO` is the shield geofile you want to test. For example, `MAGNET_GEO_FULL_PATH=/eos/experiment/ship/data/magnet_geofiles/magnet_geo_to_test_oliver.root`. It must be an absolute path to the file. `PRODUCTION_FOLDER` is where the whole output will be written on the EOS, i.e. all output will be saved at `EOS_DIR/PRODUCTION_FOLDER`.
 ### Step 2
 Set the variables above.
 ### Step 3 (important)

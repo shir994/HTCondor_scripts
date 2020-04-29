@@ -3,7 +3,7 @@ alienv printenv FairShip/latest >> ./config.sh
 source config.sh
 echo `klist`
 set -ux
-cho "Starting script."
+echo "Starting script."
 DIR=$1
 ProcId=$2
 LSB_JOBINDEX=$((ProcId+1))

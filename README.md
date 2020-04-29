@@ -6,7 +6,9 @@ How to:
 - `source set_global_envs.sh && source set_paths_flux.sh`
 - `mkdir $CONDOR_ROOT/error $CONDOR_ROOT/output $CONDOR_ROOT/log` (this need to be done only once)
 - `python3 generate_dag_file.py`
-- `condor_submit_dag dag_submit.tmp`.
+- `condor_submit_dag -force dag_submit.tmp`.
+
+*By default DAG submission resume from the checkpoint, which can result into jobs failures, thus we explicitly say to run jobs from scratch: -force*
 
 How to use:
 ### Step 1

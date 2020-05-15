@@ -1,6 +1,6 @@
 executable              = hadd.sh 
 arguments               = "$(filename) $(fluxfile) $ENV(EOS_DIR)/$(directory)"
-environment = "EOS_DIR=$ENV(EOS_DIR) SHIP_CVMFS_SETUP_FILE=$ENV(SHIP_CVMFS_SETUP_FILE) FAIRSHIP_DIR=$ENV(FAIRSHIP_DIR)"
+environment = "EOS_DIR=$ENV(EOS_DIR) SHIP_CVMFS_SETUP_FILE=$ENV(SHIP_CVMFS_SETUP_FILE) FAIRSHIP_DIR=$ENV(FAIRSHIP_DIR) ALIBUILD_WORK_DIR=$ENV(ALIBUILD_WORK_DIR)"
 output = $ENV(CONDOR_ROOT)/output/sim.$(ClusterId).$(ProcId).out
 error = $ENV(CONDOR_ROOT)/error/sim.$(ClusterId).$(ProcId).err
 log = $ENV(CONDOR_ROOT)/log/sim.$(ClusterId).log

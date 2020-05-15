@@ -1,14 +1,10 @@
-universe = docker
-docker_image = shir994/fairship:htcondor
-should_transfer_files = YES
-when_to_transfer_output = ON_EXIT
 executable = flux.sh
-arguments = $(directory) $(ProcId) $(N) $(outfile) $ENV(EOS_DIR)
+arguments = $(directory) $(ProcId) $(N) $(outfile)
+environment = "EOS_DIR=$ENV(EOS_DIR) SHIP_CVMFS_SETUP_FILE=$ENV(SHIP_CVMFS_SETUP_FILE) FAIRSHIP_DIR=$ENV(FAIRSHIP_DIR) MAGNET_GEO=$ENV(MAGNET_GEO) ALIBUILD_WORK_DIR=$ENV(ALIBUILD_WORK_DIR)"
 output = $ENV(CONDOR_ROOT)/output/sim.$(ClusterId).$(ProcId).out
 error = $ENV(CONDOR_ROOT)/error/sim.$(ClusterId).$(ProcId).err
 log = $ENV(CONDOR_ROOT)/log/sim.$(ClusterId).log
+#requirements = (CERNEnvironment =!= "qa")
 transfer_output_files = ""
-periodic_release = regexp("Cannot start container: invalid image name", HoldReason)
-requirements = Machine =!= LastRemoteHost
-+JobFlavour = "microcentury"
++JobFlavour = "workday"
 queue $(N)
